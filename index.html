@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RPG Task Manager</title>
+</head>
+
+<body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+
+    <h1>⚔️ RPG Task Manager</h1>
+
+    <h2>Player HP: <span id="hp-display" style="color: green; font-weight: bold;">100</span></h2>
+
+    <h3>Your Quest Log:</h3>
+    <div id="task-list">
+    </div>
+
+    <div class="task-input">
+        <input type="text" id="task-title" placeholder="Task Name">
+        <input type="date" id="task-date">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <button onclick="runGameLoop()" style="padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer;">
+        ⏳ Check Deadlines (Simulate Time)
+    </button>
+
+    <script src="logic.js"></script>
+</body>
+
+</html>
