@@ -7,8 +7,8 @@ A fun and gamified to-do list application that turns task management into an RPG
 - **Quest Management**: Add tasks with titles and deadlines as quests in your quest log.
 - **RPG Elements**:
   - Player HP (Health Points): Starts at 100. Completing quests heals HP, missing deadlines causes damage.
-  - XP and Leveling: Gain XP by completing quests to level up.
-  - Economy System: Includes coins for future expansions.
+  - XP and Leveling: Gain XP by completing quests to level up (level display included).
+  - Economy System: Earn coins by completing tasks for future use.
 - **Task Status Tracking**: Tasks can be pending, completed, or missed (with visual indicators).
 - **Deadline Simulation**: "Check Deadlines" button simulates time passing, applying penalties for overdue tasks.
 - **Simple UI**: Clean, inline-styled interface with buttons for adding and completing tasks.

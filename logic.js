@@ -40,18 +40,38 @@ function runGameLoop() {
 
 
 // --- 2. GAME LOGIC ---
-
+//2. IF player.hp is LESS THAN OR EQUAL TO 0:
 function takeDamage(amount) {
     player.hp -= amount;
 
     // Check for death
     if (player.hp <= 0) {
-        player.hp = 0;
-        alert("💀 GAME OVER! YOU DIED.");
+        //a. Alert: "You died! Level Down & Coin Penalty applied."
+        alert("💀 You died! Level Down & Coin Penalty applied.");
+
+        /*b. PUNISHMENT 1 (Level Down): 
+           Subtract 1 from player.lvl.
+           IF level goes below 1, reset it to 1 (No level 0).*/
+        player.lvl--;
+        if (player.lvl < 1) {
+            player.lvl = 1;
+        }
+
+        /*c. PUNISHMENT 2 (Wallet Hit): 
+           Set player.coins equal to player.coins * 0.5. (Lose half money).
+           Use Math.floor() to keep it clean.*/
+        player.coins = Math.floor(player.coins * 0.5);
+
+
+        /*d. PUNISHMENT 3 (Respawn Weak): 
+           Set player.hp to 20. */
+        player.hp = 20;
     }
 
+    //3. CALL updateScreen().
     // IMPORTANT: Data changed, so we must update the screen
     updateScreen();
+
 }
 
 
@@ -96,6 +116,9 @@ function updateScreen() {
                 ${buttonHTML}
             </div>`;
     });
+
+    document.getElementById('lvl-display').innerHTML = player.lvl;
+    document.getElementById('coin-display').innerHTML = player.coins;
 }
 
 // --- 4. INITIALIZATION ---
@@ -152,13 +175,58 @@ function completeTask(id) {
         // STEP 4: Reward the player
         player.xp += 20;
         player.hp += 10;
+        player.coins += 20;
         console.log("Quest Complete!");
 
-        if (player.hp > 100) {
+        /*if (player.hp > 100) {
             player.hp = 100;
-        }
+        }*/
+
+        checkLevelUp();
 
         // STEP 5: Update the screen to show the new status
         updateScreen();
     }
 }
+
+function checkLevelUp() {
+    //1. IF player's XP is GREATER OR EQUAL TO player's xpToNextLevel:
+    if (player.xp >= player.xpToNextLevel) {
+        //a. Subtract xpToNextLevel from player's XP. (Don't set it to 0, just subtract the cost).
+        player.xp = player.xp - player.xpToNextLevel;
+
+        //b. Add 1 to player's Level.
+        player.lvl++;
+
+        //c. UPDATE xpToNextLevel: Current Target * 1.5. 
+        //(CRITICAL: Use Math.floor() or Math.round() so you don't get decimals).
+        player.xpToNextLevel = Math.round(player.xpToNextLevel * 1.5);
+
+        //d. REWARD 1: Set player.hp equal to player.maxHp.
+        player.hp = player.maxHp;
+
+        //e. REWARD 2: Add 10 to player.coins.
+        player.coins += 10;
+
+        //f. Alert the user: "Level Up! You are now Lvl X"
+        alert(`"Level Up! You are now LvL ${player.lvl}"`);
+
+        //g. (Optional but smart): Call checkLevelUp() AGAIN inside itself. 
+        //(Why? If I earned 500 XP at once, I might level up 3 times instantly).
+        checkLevelUp();
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
