@@ -1,0 +1,86 @@
+/* 1. GLOBAL SETTINGS (Dark Mode Base) */
+body {
+    background-color: #121212;
+    /* Very dark grey, easier on eyes than pure black */
+    color: #e0e0e0;
+    /* Off-white text */
+    font-family: 'Courier New', Courier, monospace;
+    /* Retro coding font */
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+/* 2. HEADERS & STATS */
+h1 {
+    color: #bb86fc;
+    /* Purple accent */
+    text-shadow: 2px 2px #000;
+}
+
+h2 {
+    border: 2px solid #333;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+}
+
+/* 3. INPUT BOXES (Making them look like game UI) */
+input {
+    background-color: #333;
+    color: white;
+    border: 1px solid #bb86fc;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+/* 4. BUTTONS (The most interactive part) */
+button {
+    background-color: #03dac6;
+    /* Teal accent */
+    color: #000;
+    border: none;
+    padding: 10px 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: transform 0.1s;
+    /* Animation for clicking */
+    margin-left: 5px;
+}
+
+button:active {
+    transform: scale(0.95);
+    /* Shrinks slightly when clicked */
+}
+
+button:hover {
+    background-color: #018786;
+}
+
+/* 5. THE TASK LIST (Cards) */
+#task-list div {
+    background-color: #1e1e1e;
+    border-left: 5px solid #03dac6;
+    /* Teal indicator strip */
+    padding: 15px;
+    margin: 10px auto;
+    /* Auto margins center the box */
+    width: 60%;
+    /* Don't stretch across whole screen */
+    text-align: left;
+    display: flex;
+    /* Flexbox makes alignment easy */
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* Subtle 3D shadow */
+}
+
+/* 6. GAME OVER / HP STYLES */
+#hp-display {
+    text-shadow: 0 0 5px currentColor;
+    /* Glowing effect */
+}

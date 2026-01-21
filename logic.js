@@ -175,6 +175,7 @@ function completeTask(id) {
         // STEP 4: Reward the player
         player.xp += 20;
         player.hp += 10;
+        if (player.hp > 100) player.hp = 100;
         player.coins += 20;
         console.log("Quest Complete!");
 
