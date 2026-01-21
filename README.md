@@ -12,6 +12,7 @@ A fun and gamified to-do list application that turns task management into an RPG
   - Death Mechanics: If HP drops to 0, suffer penalties including level down, coin loss (half your coins), and respawn at low HP.
 - **Task Status Tracking**: Tasks can be pending, completed, or missed (with visual indicators - red strikethrough for missed, grey for completed).
 - **Deadline Simulation**: "Check Deadlines" button simulates time passing, applying penalties for overdue tasks.
+- **Persistent Progress**: Automatically save and load game state using localStorage to maintain HP, XP, level, coins, and tasks between sessions.
 - **Dark Mode UI**: Retro-styled interface with dark theme, glowing effects, and game-like aesthetics.
 - **Visual Feedback**: HP display changes color based on health status (green when healthy, red when low).
 
@@ -23,12 +24,13 @@ A fun and gamified to-do list application that turns task management into an RPG
 4. **Check Deadlines**: Click "Check Deadlines" to simulate time and see if any tasks are overdue (causes HP damage if missed).
 5. **Monitor Stats**: Keep an eye on your HP, level, and coin displays. Level up for rewards, but avoid death penalties!
 6. **Level Up**: Accumulate XP to level up, receiving full HP restoration and bonus coins.
+7. **Persistent Progress**: Your game state (stats and tasks) is automatically saved and restored when you reopen the app.
 
 ## Technologies Used
 
 - **HTML**: Structure of the web page.
 - **CSS**: Dark mode styling and visual effects.
-- **JavaScript**: Game logic, task management, and DOM manipulation.
+- **JavaScript**: Game logic, task management, DOM manipulation, and localStorage for data persistence.
 
 ## Project Structure
 
@@ -39,7 +41,6 @@ A fun and gamified to-do list application that turns task management into an RPG
 ## Future Enhancements
 
 - Add more RPG features like items, shops, or achievements.
-- Implement local storage to save progress.
 - Expand the economy system with rewards and purchases.
 
 ## Contributing

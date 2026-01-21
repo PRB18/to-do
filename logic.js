@@ -79,6 +79,13 @@ function takeDamage(amount) {
 // --- 3. DOM MANIPULATION (The Bridge) ---
 
 function updateScreen() {
+
+
+
+    //save data each time there is a change in the screen
+    saveData();
+
+
     // A. Update HP Text
     const hpSpan = document.getElementById('hp-display');
     hpSpan.innerText = player.hp;
@@ -121,9 +128,6 @@ function updateScreen() {
     document.getElementById('coin-display').innerHTML = player.coins;
 }
 
-// --- 4. INITIALIZATION ---
-// Run this once when page loads to show the starting data
-updateScreen();
 
 
 function addTask() {
@@ -218,6 +222,43 @@ function checkLevelUp() {
 
     }
 }
+
+function saveData() {
+    // 1. Save the Player object
+    // Hint: use JSON.stringify(player) as the second argument
+    localStorage.setItem("rpgPlayer", JSON.stringify(player));
+
+    // 2. Save the Tasks array
+    // Hint: use JSON.stringify(tasks)
+    localStorage.setItem("rpgTasks", JSON.stringify(tasks));
+}
+
+function loadData() {
+    try {
+        // 1. Try to get the data from the locker
+        let savedPlayer = localStorage.getItem("rpgPlayer");
+        let savedTasks = localStorage.getItem("rpgTasks");
+
+        // 2. Check if savedPlayer exists (is it not null?)
+        if (savedPlayer) {
+            // 3. Parse it and update the global 'player' variable
+            // player = JSON.parse(......);
+            player = JSON.parse(savedPlayer);
+        }
+
+        // 4. Check if savedTasks exists
+        if (savedTasks) {
+            // 5. Parse it and update the global 'tasks' variable
+            // tasks = JSON.parse(......);
+            tasks = JSON.parse(savedTasks);
+        }
+    } catch (error) {
+        console.warn("Failed to load saved data:", error);
+    }
+}
+
+loadData();
+updateScreen();
 
 
 
