@@ -260,15 +260,3 @@ function loadData() {
 loadData();
 updateScreen();
 
-
-
-
-
-
-
-
-
-
-
-
-
