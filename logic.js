@@ -1,4 +1,5 @@
 // --- 1. STATE (The Data) ---
+// Minor change for commit 1
 let player = {
     hp: 100,
     maxHp: 100,      // Needed so we know how much to heal on Level Up
