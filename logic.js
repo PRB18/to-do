@@ -17,6 +17,7 @@ let tasks = [
 
 function runGameLoop() {
     console.log("Checking deadlines..."); // Debugging check
+    // Minor change for commit 2
 
     tasks.forEach(task => {
         let deadlineDate = new Date(task.deadline);
