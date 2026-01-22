@@ -43,6 +43,7 @@ function runGameLoop() {
 
 // --- 2. GAME LOGIC ---
 //2. IF player.hp is LESS THAN OR EQUAL TO 0:
+// Minor change for commit 3
 function takeDamage(amount) {
     player.hp -= amount;
 
