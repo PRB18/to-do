@@ -9,28 +9,40 @@
 
 <body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
 
-    <h1>⚔️ RPG Task Manager</h1>
+    <div class="glass-container">
 
-    <h2>Player HP: <span id="hp-display" style="color: green; font-weight: bold;">100</span></h2>
+        <h1>⚔️ RPG Task Manager</h1>
 
-    <h3>
-        Lvl: <span id="lvl-display">1</span> |
-        🪙 Coins: <span id="coin-display">0</span>
-    </h3>
+        <div class="filter-buttons">
+            <button onclick="setFilter('pending')">Active Quests</button>
+            <button onclick="setFilter('all')">Quest log</button>
+        </div>
 
-    <h3>Your Quest Log:</h3>
-    <div id="task-list">
+        <h2>Player HP: <span id="hp-display" style="color: green; font-weight: bold;">100</span></h2>
+
+        <h3>
+            Lvl: <span id="lvl-display">1</span> |
+            🪙 Coins: <span id="coin-display">0</span>
+        </h3>
+
+        <h3>Your Quest Log:</h3>
+        <div id="task-list">
+        </div>
+
+        <div class="task-input">
+            <input type="text" id="task-title" placeholder="Task Name">
+            <input type="date" id="task-date">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+
+        <button onclick="runGameLoop()" style="padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer;">
+            ⏳ Check Deadlines (Simulate Time)
+        </button>
+
     </div>
+    <audio id="levelup-sound"
+        src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav"></audio>
 
-    <div class="task-input">
-        <input type="text" id="task-title" placeholder="Task Name">
-        <input type="date" id="task-date">
-        <button onclick="addTask()">Add Task</button>
-    </div>
-
-    <button onclick="runGameLoop()" style="padding: 10px 20px; font-size: 16px; margin-top: 20px; cursor: pointer;">
-        ⏳ Check Deadlines (Simulate Time)
-    </button>
 
     <script src="logic.js"></script>
 </body>

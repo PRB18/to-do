@@ -11,8 +11,10 @@ A fun and gamified to-do list application that turns task management into an RPG
   - Economy System: Earn coins by completing tasks and leveling up for future use.
   - Death Mechanics: If HP drops to 0, suffer penalties including level down, coin loss (half your coins), and respawn at low HP.
 - **Task Status Tracking**: Tasks can be pending, completed, or missed (with visual indicators - red strikethrough for missed, grey for completed).
+- **Task Filtering**: Switch between viewing active (pending) quests or your full quest log (completed and missed tasks).
 - **Deadline Simulation**: "Check Deadlines" button simulates time passing, applying penalties for overdue tasks.
 - **Persistent Progress**: Automatically save and load game state using localStorage to maintain HP, XP, level, coins, and tasks between sessions.
+- **Audio Feedback**: Sound effect plays when leveling up.
 - **Dark Mode UI**: Retro-styled interface with dark theme, glowing effects, and game-like aesthetics.
 - **Visual Feedback**: HP display changes color based on health status (green when healthy, red when low).
 
@@ -20,11 +22,12 @@ A fun and gamified to-do list application that turns task management into an RPG
 
 1. **Open the App**: Open `index.html` in your web browser.
 2. **Add a Quest**: Enter a task name and deadline, then click "Add Task".
-3. **Complete Quests**: Click the "Complete" button next to a pending task to mark it done, gain XP, heal HP, and earn coins.
-4. **Check Deadlines**: Click "Check Deadlines" to simulate time and see if any tasks are overdue (causes HP damage if missed).
-5. **Monitor Stats**: Keep an eye on your HP, level, and coin displays. Level up for rewards, but avoid death penalties!
-6. **Level Up**: Accumulate XP to level up, receiving full HP restoration and bonus coins.
-7. **Persistent Progress**: Your game state (stats and tasks) is automatically saved and restored when you reopen the app.
+3. **Filter Quests**: Use the "Active Quests" button to see only pending tasks, or "Quest Log" to view completed and missed tasks.
+4. **Complete Quests**: Click the "Complete" button next to a pending task to mark it done, gain XP, heal HP, and earn coins.
+5. **Check Deadlines**: Click "Check Deadlines" to simulate time and see if any tasks are overdue (causes HP damage if missed).
+6. **Monitor Stats**: Keep an eye on your HP, level, and coin displays. Level up for rewards, but avoid death penalties!
+7. **Level Up**: Accumulate XP to level up, receiving full HP restoration and bonus coins.
+8. **Persistent Progress**: Your game state (stats and tasks) is automatically saved and restored when you reopen the app.
 
 ## Technologies Used
 

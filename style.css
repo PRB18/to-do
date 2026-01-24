@@ -1,86 +1,154 @@
-/* 1. GLOBAL SETTINGS (Dark Mode Base) */
+/* IMPORT MODERN FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* 1. THE BACKGROUND (The "Desktop") */
 body {
-    background-color: #121212;
-    /* Very dark grey, easier on eyes than pure black */
-    color: #e0e0e0;
-    /* Off-white text */
-    font-family: 'Courier New', Courier, monospace;
-    /* Retro coding font */
-    text-align: center;
     margin: 0;
-    padding: 20px;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    /* Deep Modern Gradient Background */
+    background: linear-gradient(135deg, #1e0533, #110d33, #02182b);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    /* Subtle movement */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* 2. HEADERS & STATS */
+/* 2. THE GLASS PANEL (The Main App) */
+.glass-container {
+    background: rgba(255, 255, 255, 0.05);
+    /* See-through white */
+    backdrop-filter: blur(15px);
+    /* The Frost Effect */
+    -webkit-backdrop-filter: blur(15px);
+    /* Safari support */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Subtle white border */
+    border-radius: 20px;
+    padding: 40px;
+    width: 500px;
+    /* Fixed width for phone/desktop consistency */
+    max-width: 90%;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    /* Deep shadow for 3D effect */
+    text-align: center;
+}
+
+/* 3. TYPOGRAPHY */
 h1 {
-    color: #bb86fc;
-    /* Purple accent */
-    text-shadow: 2px 2px #000;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    /* Gradient Text */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 h2 {
-    border: 2px solid #333;
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #1e1e1e;
-    border-radius: 10px;
-}
-
-/* 3. INPUT BOXES (Making them look like game UI) */
-input {
-    background-color: #333;
-    color: white;
-    border: 1px solid #bb86fc;
-    padding: 10px;
-    border-radius: 5px;
-    font-family: inherit;
-}
-
-/* 4. BUTTONS (The most interactive part) */
-button {
-    background-color: #03dac6;
-    /* Teal accent */
-    color: #000;
+    font-size: 1rem;
+    color: #a0a0a0;
+    background: none;
     border: none;
-    padding: 10px 15px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: transform 0.1s;
-    /* Animation for clicking */
-    margin-left: 5px;
+    margin-top: 0;
 }
 
-button:active {
-    transform: scale(0.95);
-    /* Shrinks slightly when clicked */
+/* 4. STATS ROW (Level & Coins) */
+h3 {
+    background: rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin: 20px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 5. INPUTS (Clean & Modern) */
+input {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px;
+    border-radius: 8px;
+    color: white;
+    width: 60%;
+    margin-bottom: 10px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #00c6ff;
+}
+
+/* 6. BUTTONS (Gradients & Glows) */
+button {
+    background: linear-gradient(90deg, #00c6ff, #0072ff);
+    border: none;
+    padding: 12px 20px;
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
 }
 
 button:hover {
-    background-color: #018786;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 114, 255, 0.5);
 }
 
-/* 5. THE TASK LIST (Cards) */
+button:active {
+    transform: scale(0.98);
+}
+
+/* Secondary Button (Check Deadlines) - Make it orange for danger */
+button[onclick="checkDeadlines()"] {
+    background: linear-gradient(90deg, #ff9966, #ff5e62);
+    box-shadow: 0 4px 15px rgba(255, 94, 98, 0.3);
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* 7. TASK CARDS (Floating Items) */
 #task-list div {
-    background-color: #1e1e1e;
-    border-left: 5px solid #03dac6;
-    /* Teal indicator strip */
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 4px solid #00c6ff;
     padding: 15px;
-    margin: 10px auto;
-    /* Auto margins center the box */
-    width: 60%;
-    /* Don't stretch across whole screen */
-    text-align: left;
+    margin: 10px 0;
+    border-radius: 10px;
     display: flex;
-    /* Flexbox makes alignment easy */
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    /* Subtle 3D shadow */
+    transition: 0.3s;
+    text-align: left;
+    width: auto;
+    /* Let flexbox handle width */
 }
 
-/* 6. GAME OVER / HP STYLES */
-#hp-display {
-    text-shadow: 0 0 5px currentColor;
-    /* Glowing effect */
+#task-list div:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(5px);
+    /* Slight slide on hover */
+}
+
+/* 8. ANIMATION for the Background */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }

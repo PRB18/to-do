@@ -14,6 +14,8 @@ let tasks = [
     { id: 2, title: "Gym", deadline: "2030-01-01", status: "pending" } // Future Date
 ];
 
+let currentFilter = "pending";
+
 
 function runGameLoop() {
     console.log("Checking deadlines..."); // Debugging check
@@ -104,7 +106,21 @@ function updateScreen() {
     const listDiv = document.getElementById('task-list');
     listDiv.innerHTML = ""; // Clear the list to prevent duplicates
 
-    tasks.forEach(task => {
+
+    //To filter the tasks list accordig to the currentFilter
+    //only the filtered tasks will be present in the filteredTasks
+    let filteredTasks = tasks.filter(task => {
+        //to only show the pending tasks
+        if (currentFilter === "pending") {
+            return task.status === "pending";
+        }
+        //to show all the tasks which are not pending
+        else {
+            return task.status !== "pending";
+        }
+    })
+
+    filteredTasks.forEach(task => {
         let style = "";
         let buttonHTML = "";
 
@@ -167,6 +183,11 @@ function addTask() {
     updateScreen(); // Show the new task
 }
 
+function setFilter(newStatus) {
+    currentFilter = newStatus; // 1. Update the "memory"
+    updateScreen();            // 2. Redraw the screen with the new filter
+}
+
 
 function completeTask(id) {
     // STEP 1: Find the task in the array that matches the ID passed in
@@ -189,7 +210,9 @@ function completeTask(id) {
         /*if (player.hp > 100) {
             player.hp = 100;
         }*/
-
+        //SOUND
+        const sound = document.getElementById("levelup-sound");
+        sound.play();
         checkLevelUp();
 
         // STEP 5: Update the screen to show the new status
