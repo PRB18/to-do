@@ -46,6 +46,29 @@
     <audio id="levelup-sound"
         src="https://codeskulptor-demos.commondatastorage.googleapis.com/GalaxyInvaders/bonus.wav"></audio>
 
+    <div id="shop-modal" class="modal hidden">
+
+        <div class="modal-content">
+            <h2>🛍️ Rewards Shop</h2>
+            <p>Spend your hard-earned coins!</p>
+
+            <div class="shop-item">
+                <span>🎮 1 Hr Gaming</span>
+                <button onclick="buyItem(50, '1 Hr Gaming')">50 🪙</button>
+            </div>
+
+            <div class="shop-item">
+                <span>🍔 Cheat Meal</span>
+                <button onclick="buyItem(100, 'Cheat Meal')">100 🪙</button>
+            </div>
+
+            <button onclick="toggleShop()" style="background: #ef4444; margin-top: 20px;">Close Shop</button>
+        </div>
+
+    </div>
+
+    <button onclick="toggleShop()" style="margin-top: 10px;">🛒 Open Shop</button>
+
 
     <script src="logic.js"></script>
 </body>

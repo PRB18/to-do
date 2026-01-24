@@ -161,3 +161,51 @@ button[onclick="checkDeadlines()"] {
     justify-content: center;
     gap: 10px;
 }
+
+.hidden {
+    display: none !important;
+}
+
+/* 1. THE OVERLAY (Dark Background) */
+.modal {
+    position: fixed;
+    /* Stays in place even if you scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    /* 80% Black (See-through) */
+
+    /* Centering Magic (Centers the box in the middle of the screen) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 1000;
+    /* Ensures it sits ON TOP of everything else */
+}
+
+/* 2. THE BOX (The Shop Interface) */
+.modal-content {
+    background: #1e1e2e;
+    /* Dark theme background */
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #a78bfa;
+    /* Purple border */
+    text-align: center;
+    width: 300px;
+}
+
+/* 3. THE ITEMS */
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    /* Text Left, Button Right */
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    /* Slight highlight */
+    border-radius: 8px;
+}

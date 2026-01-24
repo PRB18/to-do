@@ -347,6 +347,21 @@ function editTask(id) {
     }
 }
 
+function buyItem(cost, itemName) {
+    if (player.coins >= cost) {
+        player.coins = player.coins - cost;
+        alert("You bought: " + itemName);
+        updateScreen();
+    }
+}
+
+function toggleShop() {
+    let shop = document.getElementById("shop-modal");
+    console.log("Toggling shop, current classes:", shop.className);
+    shop.classList.toggle("hidden");
+    console.log("After toggle, classes:", shop.className);
+}
+
 loadData();
 updateScreen();
 
