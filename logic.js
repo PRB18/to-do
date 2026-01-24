@@ -121,26 +121,40 @@ function updateScreen() {
     })
 
     filteredTasks.forEach(task => {
-        let style = "";
-        let buttonHTML = "";
 
+        let style = "";
+        let statusBtn = ""; // Renamed for clarity (was buttonHTML)
+
+        // 1. Determine Status & Style
         if (task.status === "missed") {
-            style = "color: red; text-decoration: line-through;";
-            buttonHTML = "❌"; // Can't complete a failed task
+            style = "color: #ef4444; text-decoration: line-through;";
+            statusBtn = "❌";
         } else if (task.status === "done") {
-            style = "color: grey; text-decoration: line-through;";
-            buttonHTML = "✅"; // Already done
+            style = "color: #888; text-decoration: line-through;";
+            statusBtn = "✅";
         } else {
-            // If pending, show a button that calls completeTask(id)
-            buttonHTML = `<button onclick="completeTask(${task.id})">Complete</button>`;
+            style = "color: white;";
+            statusBtn = `<button onclick="completeTask(${task.id})">Complete</button>`;
         }
 
-        // Add the task text + the button
+        // 2. The Delete Button (Always available)
+        // Notice: NO 's' at the end of deleteTask
+        let deleteBtn = `<button onclick="deleteTasks(${task.id})" style="margin-left:5px;">🗑️</button>`;
+
+        // 3. Render
+        // NOTICE: style="${style}" (Quotes added)
+        // NOTICE: I put the text in a <span> so the buttons don't get crossed out
         listDiv.innerHTML += `
-            <div style="margin: 10px 0; ${style}">
-                ${task.title} (Due: ${task.deadline}) 
-                ${buttonHTML}
-            </div>`;
+        <div style="margin: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+            <span style="${style}">
+                ${task.title} <small>(Due: ${task.deadline})</small> 
+            </span>
+            
+            <div>
+                ${statusBtn}
+                ${deleteBtn}
+            </div>
+        </div>`;
     });
 
     document.getElementById('lvl-display').innerHTML = player.lvl;
@@ -280,6 +294,28 @@ function loadData() {
         }
     } catch (error) {
         console.warn("Failed to load saved data:", error);
+    }
+}
+
+function deleteTasks(id) {
+    // 1. Ask for confirmation (optional, but good practice)
+    if (confirm("You sure?")) {
+
+        // 2. UPDATE THE 'tasks' VARIABLE
+        // Write the code to filter 'tasks' so that we keep everything EXCEPT the matching 'id'
+        // Hint: tasks = tasks.filter( ... )
+        tasks = tasks.filter(task => {
+            if (task.id !== id) {
+                return task;
+            }
+            else {
+                return;
+            }
+        });
+
+        // 3. Save and Update Screen
+        // (Call the functions we always call to save and redraw)
+        updateScreen();
     }
 }
 

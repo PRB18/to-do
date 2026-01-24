@@ -120,7 +120,7 @@ button[onclick="checkDeadlines()"] {
 #task-list div {
     background: rgba(255, 255, 255, 0.08);
     border-left: 4px solid #00c6ff;
-    padding: 15px;
+    padding: 10px 15px;
     margin: 10px 0;
     border-radius: 10px;
     display: flex;
@@ -151,4 +151,13 @@ button[onclick="checkDeadlines()"] {
     100% {
         background-position: 0% 50%;
     }
+}
+
+
+.filter-buttons {
+    margin-bottom: 30px;
+    /* Big gap */
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
