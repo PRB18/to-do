@@ -124,6 +124,7 @@ function updateScreen() {
 
         let style = "";
         let statusBtn = ""; // Renamed for clarity (was buttonHTML)
+        let editBtn = "";
 
         // 1. Determine Status & Style
         if (task.status === "missed") {
@@ -135,6 +136,7 @@ function updateScreen() {
         } else {
             style = "color: white;";
             statusBtn = `<button onclick="completeTask(${task.id})">Complete</button>`;
+            editBtn = `<button onclick="editTask(${task.id})" style="margin-left:5px;">✏️</button>`;
         }
 
         // 2. The Delete Button (Always available)
@@ -152,6 +154,7 @@ function updateScreen() {
             
             <div>
                 ${statusBtn}
+                ${editBtn}
                 ${deleteBtn}
             </div>
         </div>`;
@@ -315,6 +318,31 @@ function deleteTasks(id) {
 
         // 3. Save and Update Screen
         // (Call the functions we always call to save and redraw)
+        updateScreen();
+    }
+}
+
+//to reset the entire game 
+function resetGame() {
+    if (confirm("You will lose all the progress. You sure?")) {
+        localStorage.removeItem("rpgPlayer");
+        localStorage.removeItem("rpgTasks");
+        location.reload();
+    }
+}
+
+//to edit the task 
+function editTask(id) {
+    //find the task that matches the id
+    let task = tasks.find(t => t.id === id);
+
+    //get the updated task title from the user
+    let editedTask = prompt("Update the task: ", task.title);
+
+    //check if the user actually entered anything
+    //if entered then update the title with the edited one 
+    if (editTask) {
+        task.title = editedTask;
         updateScreen();
     }
 }
