@@ -14,7 +14,8 @@ A fun and gamified to-do list application that turns task management into an RPG
 - **Task Filtering**: Switch between viewing active (pending) quests or your full quest log (completed and missed tasks).
 - **Task Editing**: Edit the title of pending tasks to update quest details.
 - **Task Deletion**: Delete tasks from your quest log with confirmation to clean up completed or irrelevant quests.
-- **Rewards Shop**: Spend earned coins on rewards like gaming time or cheat meals through a modal interface.
+- **Mystic Emporium**: Spend earned coins on in-game items like Healing Potions to restore HP or Wisdom Tomes to gain XP through a modal interface.
+- **Deadline Extension**: Extend task deadlines by 1 day at the cost of coins to avoid missing penalties.
 - **Game Reset**: Reset all progress (stats and tasks) with confirmation to start fresh.
 - **Deadline Simulation**: "Check Deadlines" button simulates time passing, applying penalties for overdue tasks.
 - **Persistent Progress**: Automatically save and load game state using localStorage to maintain HP, XP, level, coins, and tasks between sessions.
@@ -31,12 +32,13 @@ A fun and gamified to-do list application that turns task management into an RPG
 5. **Edit Quests**: Click the pencil icon (✏️) next to a pending task to edit its title.
 6. **Delete Quests**: Click the trash icon (🗑️) next to any task to delete it from your quest log (with confirmation).
 7. **Check Deadlines**: Click "Check Deadlines" to simulate time and see if any tasks are overdue (causes HP damage if missed).
-8. **Open Shop**: Click "🛒 Open Shop" to access the rewards shop and spend coins on items.
-9. **Buy Rewards**: In the shop modal, click on reward buttons to purchase items if you have enough coins.
-10. **Reset Progress**: Click "Reset All Progress" to clear all stats and tasks and start over (with confirmation).
-11. **Monitor Stats**: Keep an eye on your HP, level, and coin displays. Level up for rewards, but avoid death penalties!
-12. **Level Up**: Accumulate XP to level up, receiving full HP restoration and bonus coins.
-13. **Persistent Progress**: Your game state (stats and tasks) is automatically saved and restored when you reopen the app.
+8. **Open Shop**: Click "🛒 Open Shop" to access the Mystic Emporium and spend coins on items.
+9. **Buy Items**: In the Mystic Emporium modal, click on item buttons to purchase Healing Potions or Wisdom Tomes if you have enough coins.
+10. **Extend Deadlines**: Click the calendar icon (📅) next to a pending task to extend its deadline by 1 day for a coin cost.
+11. **Reset Progress**: Click "Reset All Progress" to clear all stats and tasks and start over (with confirmation).
+12. **Monitor Stats**: Keep an eye on your HP, level, and coin displays. Level up for rewards, but avoid death penalties!
+13. **Level Up**: Accumulate XP to level up, receiving full HP restoration and bonus coins.
+14. **Persistent Progress**: Your game state (stats and tasks) is automatically saved and restored when you reopen the app.
 
 ## Technologies Used
 

@@ -201,8 +201,8 @@ button[onclick="checkDeadlines()"] {
 /* 3. THE ITEMS */
 .shop-item {
     display: flex;
-    justify-content: space-between;
-    /* Text Left, Button Right */
+    flex-direction: column;
+    align-items: center;
     margin: 15px 0;
     padding: 10px;
     background: rgba(255, 255, 255, 0.1);

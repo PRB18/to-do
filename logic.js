@@ -125,6 +125,7 @@ function updateScreen() {
         let style = "";
         let statusBtn = ""; // Renamed for clarity (was buttonHTML)
         let editBtn = "";
+        let extdlbtn = "";
 
         // 1. Determine Status & Style
         if (task.status === "missed") {
@@ -137,6 +138,7 @@ function updateScreen() {
             style = "color: white;";
             statusBtn = `<button onclick="completeTask(${task.id})">Complete</button>`;
             editBtn = `<button onclick="editTask(${task.id})" style="margin-left:5px;">✏️</button>`;
+            extdlbtn = `<button onclick="extendDeadline(${task.id},${100})" style="margin-left:5px;">📅</button>`
         }
 
         // 2. The Delete Button (Always available)
@@ -156,6 +158,7 @@ function updateScreen() {
                 ${statusBtn}
                 ${editBtn}
                 ${deleteBtn}
+                ${extdlbtn}
             </div>
         </div>`;
     });
@@ -347,19 +350,62 @@ function editTask(id) {
     }
 }
 
-function buyItem(cost, itemName) {
-    if (player.coins >= cost) {
-        player.coins = player.coins - cost;
-        alert("You bought: " + itemName);
-        updateScreen();
-    }
-}
 
 function toggleShop() {
     let shop = document.getElementById("shop-modal");
-    console.log("Toggling shop, current classes:", shop.className);
+
     shop.classList.toggle("hidden");
-    console.log("After toggle, classes:", shop.className);
+
+}
+
+//logic to buy hp from the store 
+function buyPotion(cost) {
+    if (player.coins >= cost && player.hp < player.maxHp) {
+        player.coins = player.coins - cost;
+        player.hp = player.hp + 20;
+        if (player.hp > player.maxHp) {
+            player.hp = player.maxHp;
+        }
+    }
+    else {
+        alert("insufficient coins or max hp");
+    }
+    updateScreen();
+}
+
+
+function buyXp(cost) {
+    if (player.coins >= cost) {
+        player.coins = player.coins - cost;
+        player.xp = player.xp + 50;
+        checkLevelUp();
+    }
+}
+
+function extendDeadline(id, cost) {
+    let conf = confirm("Do you wanna extend deadline at the cost of " + cost + " coins?");
+    if (player.coins >= cost && conf) {
+
+        player.coins = player.coins - cost;
+
+        let task = tasks.find(t => t.id === id);
+        // 1. Get the current day number, add 1
+        let currentDate = new Date(task.deadline);
+
+
+        // 2. Set the date object to that new number
+        currentDate.setDate(currentDate.getDate() + 1);
+
+        // 3. Convert back to string (The Ugly Part)
+        // .toISOString() gives you "2026-01-27T00:00:00.000Z"
+        // .split('T')[0] gives you "2026-01-27"
+        task.deadline = currentDate.toISOString().split('T')[0];
+
+        updateScreen();
+    }
+    //else {
+    //  alert("insufficient coins");
+    //}
 }
 
 loadData();
