@@ -117,7 +117,7 @@ button[onclick="checkDeadlines()"] {
 }
 
 /* 7. TASK CARDS (Floating Items) */
-#task-list div {
+.task-card {
     background: rgba(255, 255, 255, 0.08);
     border-left: 4px solid #00c6ff;
     padding: 10px 15px;
@@ -132,10 +132,25 @@ button[onclick="checkDeadlines()"] {
     /* Let flexbox handle width */
 }
 
-#task-list div:hover {
+.task-card:hover {
     background: rgba(255, 255, 255, 0.12);
     transform: translateX(5px);
     /* Slight slide on hover */
+}
+
+.task-card.overdue {
+    border-left-color: red;
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.task-card.completed {
+    color: #888;
+    text-decoration: line-through;
+}
+
+.task-buttons {
+    display: flex;
+    align-items: center;
 }
 
 /* 8. ANIMATION for the Background */

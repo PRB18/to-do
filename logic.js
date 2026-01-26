@@ -122,45 +122,50 @@ function updateScreen() {
 
     filteredTasks.forEach(task => {
 
-        let style = "";
+        let today = new Date();
+        today.setHours(0, 0, 0, 0);
+        let taskDate = new Date(task.deadline);
+        let overdueClass = "";
+
+        // LOGIC CHECK:
+        // It is ONLY overdue if:
+        // 1. The date is passed AND
+        // 2. The task is NOT completed yet.
+        if (taskDate < today && task.status === "pending") {
+            overdueClass = "overdue";
+        }
+
         let statusBtn = ""; // Renamed for clarity (was buttonHTML)
         let editBtn = "";
         let extdlbtn = "";
+        let deleteBtn = `<button onclick="deleteTasks(${task.id})" style="margin-left:5px;">🗑️</button>`;
 
         // 1. Determine Status & Style
         if (task.status === "missed") {
-            style = "color: #ef4444; text-decoration: line-through;";
             statusBtn = "❌";
         } else if (task.status === "done") {
-            style = "color: #888; text-decoration: line-through;";
             statusBtn = "✅";
         } else {
-            style = "color: white;";
             statusBtn = `<button onclick="completeTask(${task.id})">Complete</button>`;
             editBtn = `<button onclick="editTask(${task.id})" style="margin-left:5px;">✏️</button>`;
             extdlbtn = `<button onclick="extendDeadline(${task.id},${100})" style="margin-left:5px;">📅</button>`
         }
 
-        // 2. The Delete Button (Always available)
-        // Notice: NO 's' at the end of deleteTask
-        let deleteBtn = `<button onclick="deleteTasks(${task.id})" style="margin-left:5px;">🗑️</button>`;
-
-        // 3. Render
-        // NOTICE: style="${style}" (Quotes added)
-        // NOTICE: I put the text in a <span> so the buttons don't get crossed out
-        listDiv.innerHTML += `
-        <div style="margin: 10px 0; display: flex; justify-content: space-between; align-items: center;">
-            <span style="${style}">
-                ${task.title} <small>(Due: ${task.deadline})</small> 
-            </span>
-            
-            <div>
-                ${statusBtn}
-                ${editBtn}
-                ${deleteBtn}
-                ${extdlbtn}
+        // Generate HTML...
+        // Note: Make sure your completed logic (line-through) is handled 
+        // by a different class (like .completed) in your existing code.
+        document.getElementById("task-list").innerHTML += `
+            <div class="task-card ${overdueClass} ${task.status === 'done' ? 'completed' : ''}">
+                <h3>${task.title}</h3>
+                <p>Due: ${task.deadline}</p>
+                <div class="task-buttons">
+                    ${statusBtn}
+                    ${editBtn}
+                    ${extdlbtn}
+                    ${deleteBtn}
+                </div>
             </div>
-        </div>`;
+        `;
     });
 
     document.getElementById('lvl-display').innerHTML = player.lvl;
