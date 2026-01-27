@@ -56,6 +56,7 @@ A fun and gamified to-do list application that turns task management into an RPG
 
 - Add more RPG features like items, shops, or achievements.
 - Expand the economy system with rewards and purchases.
+- Improve user interface with animations and transitions.
 
 ## Contributing
 
