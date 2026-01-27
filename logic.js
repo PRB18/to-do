@@ -1,120 +1,102 @@
-// --- 1. STATE (The Data) ---
-// Minor change for commit 1
+// player data
 let player = {
     hp: 100,
-    maxHp: 100,      // Needed so we know how much to heal on Level Up
+    maxHp: 100,      // max health for healing on level up
     xp: 0,
-    xpToNextLevel: 100, // Starting goal
+    xpToNextLevel: 100, // next level threshold
     lvl: 1,
-    coins: 0         // New Economy system
+    coins: 0         // money system
 };
 
 let tasks = [
-    { id: 1, title: "Submit Assignment", deadline: "2023-01-01", status: "pending" }, // Past Date
-    { id: 2, title: "Gym", deadline: "2030-01-01", status: "pending" } // Future Date
+    { id: 1, title: "Submit Assignment", deadline: "2023-01-01", status: "pending" }, // old date to test
+    { id: 2, title: "Gym", deadline: "2030-01-01", status: "pending" } // future date for testing
 ];
 
 let currentFilter = "pending";
 
 
 function runGameLoop() {
-    console.log("Checking deadlines..."); // Debugging check
-    // Minor change for commit 2
+    console.log("Checking deadlines...");
 
     tasks.forEach(task => {
         let deadlineDate = new Date(task.deadline);
         let now = Date.now();
 
-        // If time is up AND task is still pending
+        // only if time ran out and task isn't done yet
         if (now > deadlineDate && task.status === "pending") {
 
             console.log(`You missed the deadline for: ${task.title}`);
-            takeDamage(20); // Ouch
+            takeDamage(20); // pain
 
-            // Mark as missed so we don't take damage again next time
+            // mark as missed so we don't keep punishing for it
             task.status = "missed";
         }
     });
 
-    // Update screen again to show the task is now "missed" (red line)
+    // refresh the display
     updateScreen();
 }
 
 
 
 
-// --- 2. GAME LOGIC ---
-//2. IF player.hp is LESS THAN OR EQUAL TO 0:
-// Minor change for commit 3
+// damage function - lose hp
 function takeDamage(amount) {
     player.hp -= amount;
 
-    // Check for death
+    // death check
     if (player.hp <= 0) {
-        //a. Alert: "You died! Level Down & Coin Penalty applied."
         alert("💀 You died! Level Down & Coin Penalty applied.");
 
-        /*b. PUNISHMENT 1 (Level Down): 
-           Subtract 1 from player.lvl.
-           IF level goes below 1, reset it to 1 (No level 0).*/
+        // lose 1 level (min level is 1)
         player.lvl--;
         if (player.lvl < 1) {
             player.lvl = 1;
         }
 
-        /*c. PUNISHMENT 2 (Wallet Hit): 
-           Set player.coins equal to player.coins * 0.5. (Lose half money).
-           Use Math.floor() to keep it clean.*/
+        // lose half coins
         player.coins = Math.floor(player.coins * 0.5);
 
-
-        /*d. PUNISHMENT 3 (Respawn Weak): 
-           Set player.hp to 20. */
+        // come back with low hp
         player.hp = 20;
     }
 
-    //3. CALL updateScreen().
-    // IMPORTANT: Data changed, so we must update the screen
+    // always update screen after changes
     updateScreen();
 
 }
 
 
 
-// --- 3. DOM MANIPULATION (The Bridge) ---
-
+// update everything on the screen
 function updateScreen() {
 
-
-
-    //save data each time there is a change in the screen
+    // save stuff whenever something changes
     saveData();
 
-
-    // A. Update HP Text
+    // update hp display
     const hpSpan = document.getElementById('hp-display');
     hpSpan.innerText = player.hp;
 
-    // Visual Feedback: Turn red if low HP
+    // make it red when low
     if (player.hp <= 50) {
         hpSpan.style.color = "red";
     } else {
         hpSpan.style.color = "green";
     }
 
-    // B. Update Task List
+    // update task list
     const listDiv = document.getElementById('task-list');
-    listDiv.innerHTML = ""; // Clear the list to prevent duplicates
+    listDiv.innerHTML = ""; // clear before redrawing
 
-
-    //To filter the tasks list accordig to the currentFilter
-    //only the filtered tasks will be present in the filteredTasks
+    // filter tasks based on what we're looking at
     let filteredTasks = tasks.filter(task => {
-        //to only show the pending tasks
+        // just show pending
         if (currentFilter === "pending") {
             return task.status === "pending";
         }
-        //to show all the tasks which are not pending
+        // show everything else (done/missed)
         else {
             return task.status !== "pending";
         }
@@ -127,20 +109,17 @@ function updateScreen() {
         let taskDate = new Date(task.deadline);
         let overdueClass = "";
 
-        // LOGIC CHECK:
-        // It is ONLY overdue if:
-        // 1. The date is passed AND
-        // 2. The task is NOT completed yet.
+        // mark as overdue if deadline passed and not done
         if (taskDate < today && task.status === "pending") {
             overdueClass = "overdue";
         }
 
-        let statusBtn = ""; // Renamed for clarity (was buttonHTML)
+        let statusBtn = "";
         let editBtn = "";
         let extdlbtn = "";
         let deleteBtn = `<button onclick="deleteTasks(${task.id})" style="margin-left:5px;">🗑️</button>`;
 
-        // 1. Determine Status & Style
+        // set status buttons based on task state
         if (task.status === "missed") {
             statusBtn = "❌";
         } else if (task.status === "done") {
@@ -151,9 +130,7 @@ function updateScreen() {
             extdlbtn = `<button onclick="extendDeadline(${task.id},${100})" style="margin-left:5px;">📅</button>`
         }
 
-        // Generate HTML...
-        // Note: Make sure your completed logic (line-through) is handled 
-        // by a different class (like .completed) in your existing code.
+        // build the html for this task
         document.getElementById("task-list").innerHTML += `
             <div class="task-card ${overdueClass} ${task.status === 'done' ? 'completed' : ''}">
                 <h3>${task.title}</h3>
@@ -175,22 +152,20 @@ function updateScreen() {
 
 
 function addTask() {
-    // 1. Get the text from the inputs
+    // grab input values
     let titleInput = document.getElementById("task-title");
     let dateInput = document.getElementById("task-date");
 
     let title = titleInput.value;
     let deadline = dateInput.value;
 
-    // 2. Validation: If title is empty, stop here
+    // need a title
     if (title === "") {
         alert("You need a quest name, traveler!");
         return;
     }
 
-    // 3. Create the new task object
-    // YOU WRITE THIS PART:
-    // make an object with id (use Date.now()), title, deadline, and status: "pending"
+    // make the new task
     let newTask = {
         id: Date.now(),
         title: title,
@@ -198,109 +173,90 @@ function addTask() {
         status: "pending",
     };
 
-    // 4. Add to array
-    // YOU WRITE THIS PART:
-    // tasks.push(......)
+    // add it to the list
     tasks.push(newTask);
 
-    // 5. Cleanup
-    titleInput.value = ""; // Clear the box
-    updateScreen(); // Show the new task
+    // clear inputs and refresh
+    titleInput.value = "";
+    updateScreen();
 }
 
 function setFilter(newStatus) {
-    currentFilter = newStatus; // 1. Update the "memory"
-    updateScreen();            // 2. Redraw the screen with the new filter
+    currentFilter = newStatus;
+    updateScreen();
 }
 
 
 function completeTask(id) {
-    // STEP 1: Find the task in the array that matches the ID passed in
-    // HINT: Use the .find() method: tasks.find(t => t.id === id)
+    // find the task
     let task = tasks.find(t => t.id === id);
 
-    // STEP 2: Safety Check (Only if task exists and is pending)
+    // only if it exists and is pending
     if (task && task.status === "pending") {
 
-        // STEP 3: Change the status to 'done'
         task.status = "done";
 
-        // STEP 4: Reward the player
+        // give rewards
         player.xp += 20;
         player.hp += 10;
         if (player.hp > 100) player.hp = 100;
         player.coins += 20;
         console.log("Quest Complete!");
 
-        /*if (player.hp > 100) {
-            player.hp = 100;
-        }*/
-        //SOUND
+        // play sound
         const sound = document.getElementById("levelup-sound");
         sound.play();
         checkLevelUp();
 
-        // STEP 5: Update the screen to show the new status
         updateScreen();
     }
 }
 
 function checkLevelUp() {
-    //1. IF player's XP is GREATER OR EQUAL TO player's xpToNextLevel:
+    // enough xp to level?
     if (player.xp >= player.xpToNextLevel) {
-        //a. Subtract xpToNextLevel from player's XP. (Don't set it to 0, just subtract the cost).
         player.xp = player.xp - player.xpToNextLevel;
 
-        //b. Add 1 to player's Level.
         player.lvl++;
 
-        //c. UPDATE xpToNextLevel: Current Target * 1.5. 
-        //(CRITICAL: Use Math.floor() or Math.round() so you don't get decimals).
+        // next level needs more xp
         player.xpToNextLevel = Math.round(player.xpToNextLevel * 1.5);
 
-        //d. REWARD 1: Set player.hp equal to player.maxHp.
+        // full heal on level up
         player.hp = player.maxHp;
 
-        //e. REWARD 2: Add 10 to player.coins.
+        // bonus coins
         player.coins += 10;
 
-        //f. Alert the user: "Level Up! You are now Lvl X"
         alert(`"Level Up! You are now LvL ${player.lvl}"`);
 
-        //g. (Optional but smart): Call checkLevelUp() AGAIN inside itself. 
-        //(Why? If I earned 500 XP at once, I might level up 3 times instantly).
+        // check again in case we leveled up multiple times
         checkLevelUp();
 
     }
 }
 
 function saveData() {
-    // 1. Save the Player object
-    // Hint: use JSON.stringify(player) as the second argument
+    // save player
     localStorage.setItem("rpgPlayer", JSON.stringify(player));
 
-    // 2. Save the Tasks array
-    // Hint: use JSON.stringify(tasks)
+    // save tasks
     localStorage.setItem("rpgTasks", JSON.stringify(tasks));
 }
 
 function loadData() {
     try {
-        // 1. Try to get the data from the locker
+        // get saved data from storage
         let savedPlayer = localStorage.getItem("rpgPlayer");
         let savedTasks = localStorage.getItem("rpgTasks");
 
-        // 2. Check if savedPlayer exists (is it not null?)
+        // load player if exists
         if (savedPlayer) {
-            // 3. Parse it and update the global 'player' variable
-            // player = JSON.parse(......);
             player = JSON.parse(savedPlayer);
         }
 
-        // 4. Check if savedTasks exists
+        // load tasks if exists
         if (savedTasks) {
-            // 5. Parse it and update the global 'tasks' variable
-            // tasks = JSON.parse(......);
             tasks = JSON.parse(savedTasks);
         }
     } catch (error) {
@@ -309,12 +265,8 @@ function loadData() {
 }
 
 function deleteTasks(id) {
-    // 1. Ask for confirmation (optional, but good practice)
     if (confirm("You sure?")) {
-
-        // 2. UPDATE THE 'tasks' VARIABLE
-        // Write the code to filter 'tasks' so that we keep everything EXCEPT the matching 'id'
-        // Hint: tasks = tasks.filter( ... )
+        // remove the task with this id
         tasks = tasks.filter(task => {
             if (task.id !== id) {
                 return task;
@@ -324,13 +276,11 @@ function deleteTasks(id) {
             }
         });
 
-        // 3. Save and Update Screen
-        // (Call the functions we always call to save and redraw)
         updateScreen();
     }
 }
 
-//to reset the entire game 
+// nuke everything and start fresh
 function resetGame() {
     if (confirm("You will lose all the progress. You sure?")) {
         localStorage.removeItem("rpgPlayer");
@@ -339,16 +289,15 @@ function resetGame() {
     }
 }
 
-//to edit the task 
+// let user change task name
 function editTask(id) {
-    //find the task that matches the id
+    // find it
     let task = tasks.find(t => t.id === id);
 
-    //get the updated task title from the user
+    // ask for new name
     let editedTask = prompt("Update the task: ", task.title);
 
-    //check if the user actually entered anything
-    //if entered then update the title with the edited one 
+    // if they entered something, save it
     if (editTask) {
         task.title = editedTask;
         updateScreen();
@@ -356,14 +305,13 @@ function editTask(id) {
 }
 
 
+// show/hide shop
 function toggleShop() {
     let shop = document.getElementById("shop-modal");
-
     shop.classList.toggle("hidden");
-
 }
 
-//logic to buy hp from the store 
+// buy hp potion
 function buyPotion(cost) {
     if (player.coins >= cost && player.hp < player.maxHp) {
         player.coins = player.coins - cost;
@@ -379,6 +327,7 @@ function buyPotion(cost) {
 }
 
 
+// buy xp points
 function buyXp(cost) {
     if (player.coins >= cost) {
         player.coins = player.coins - cost;
@@ -387,6 +336,7 @@ function buyXp(cost) {
     }
 }
 
+// buy extra time for a task
 function extendDeadline(id, cost) {
     let conf = confirm("Do you wanna extend deadline at the cost of " + cost + " coins?");
     if (player.coins >= cost && conf) {
@@ -394,23 +344,15 @@ function extendDeadline(id, cost) {
         player.coins = player.coins - cost;
 
         let task = tasks.find(t => t.id === id);
-        // 1. Get the current day number, add 1
+        // add 1 day
         let currentDate = new Date(task.deadline);
-
-
-        // 2. Set the date object to that new number
         currentDate.setDate(currentDate.getDate() + 1);
 
-        // 3. Convert back to string (The Ugly Part)
-        // .toISOString() gives you "2026-01-27T00:00:00.000Z"
-        // .split('T')[0] gives you "2026-01-27"
+        // convert back to date string
         task.deadline = currentDate.toISOString().split('T')[0];
 
         updateScreen();
     }
-    //else {
-    //  alert("insufficient coins");
-    //}
 }
 
 loadData();
