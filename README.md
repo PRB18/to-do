@@ -4,22 +4,6 @@ A fun and gamified to-do list application that turns task management into an RPG
 
 **🎮 [Live Demo](https://super-torte-165c5e.netlify.app)**
 
-## Screenshots
-
-Here's what the app looks like in action:
-
-![Game Interface](./screenshots/main-interface.png)
-*Main quest management interface with player stats*
-
-![Task Creation](./screenshots/add-task.png)
-*Adding a new quest with deadline*
-
-![Shop Interface](./screenshots/shop.png)
-*Mystic Emporium for purchasing items*
-
-![Level Up](./screenshots/level-up.png)
-*Level up rewards and progression*
-
 ## Features
 
 - **Quest Management**: Add tasks with titles and deadlines as quests in your quest log.
